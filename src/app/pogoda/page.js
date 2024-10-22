@@ -1,7 +1,7 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { Cloud, Wind } from 'lucide-react';
+import { Cloud, Droplet, Minimize2, Wind } from 'lucide-react';
 
 export default function Pogoda(){
     const [daneDzis, setDaneDzis] = useState(null)
@@ -44,7 +44,7 @@ export default function Pogoda(){
                 <CardContent className="flex flex-wrap flex-col justify-center items-center">
                   <h1 className="text-3xl">{daneDzis.main.temp}℃</h1>
                   <h1 className="text-xl">{dd+"/"+mm+"/"+yyyy}</h1>
-                  <h1 className="flex justify-between gap-2"><Cloud/>{daneDzis.clouds.all}|<Wind/>{daneDzis.wind.speed}|<Wind/>{daneDzis.wind.speed}|<Wind/>{daneDzis.wind.speed}</h1>
+                  <h1 className="flex justify-between gap-2"><Cloud/>{daneDzis.clouds.all}%|<Wind/>{daneDzis.wind.speed}m/s|<Minimize2/>{daneDzis.main.pressure}hPa|<Droplet/>{daneDzis.main.humidity}%</h1>
                 </CardContent>
                 </Card>
             )}
