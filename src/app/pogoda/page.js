@@ -21,10 +21,9 @@ export default function Pogoda(){
           const data5 = await fetch("https://api.openweathermap.org/data/2.5/forecast?lat=52&lon=21&units=metric&appid=b6b25c78c679c8415fd7ab2defc95d8b")
           const dataDzisJson = await dataDzis.json()
           const data5Json = await data5.json()
+          const filteredData5 = data5Json.list.filter(entry => entry.dt_txt.includes("12:00:00")).slice(0, 5)
           setDaneDzis(dataDzisJson)
-          setDane5(data5Json)
-          console.log(dataDzisJson)
-          console.log(data5Json)
+          setDane5(filteredData5)
         }catch(error){
             console.log(error)
             setErr(true)
@@ -48,6 +47,17 @@ export default function Pogoda(){
                 </CardContent>
                 </Card>
             )}
+            <div className="flex flex-row flex-wrap justify-center mt-4">
+            {dane5 && dane5.map((item, idx) => (
+              <Card className="h-28 w-65 m-1 pt-4" key="idx">
+              <CardContent className="flex flex-wrap flex-col justify-center items-center">
+                <h1 className="text-3xl">{item.main.temp}℃</h1>
+                <h1 className="text-xl">{item.dt_txt}</h1>
+                <h1 className="flex justify-between gap-2"><Cloud/>{item.clouds.all}%|<Wind/>{item.wind.speed}m/s|<Minimize2/>{item.main.pressure}hPa|<Droplet/>{item.main.humidity}%</h1>
+              </CardContent>
+              </Card>
+            ))}
+            </div>
         </div>
     )
 }

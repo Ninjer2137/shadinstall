@@ -34,7 +34,7 @@ export default function News(){
             {news && news.map((item, idx) => (
                 <Card key={idx} className="w-[600px] h-auto flex flex-col">
                 <CardContent className="flex flex-wrap flex-col justify-center items-center flex-grow">
-                    {item.urlToImage ? <Image src={item.urlToImage} width={500} height={500} alt="News Image" className="h-[300px] w-[500px]"/> : null}
+                    {item.urlToImage ? <Image src={item.urlToImage} width={500} height={500} alt="News Image" className="h-[300px] w-[500px]"/> : <span className="bg-gray-500 h-[300px] w-[500px] flex items-center justify-center">No Image</span>}
                     <h1 className="font-bold">{item.title}</h1>
                     <h1>{item.description}</h1>
                 </CardContent>
