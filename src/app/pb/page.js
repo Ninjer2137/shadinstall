@@ -14,12 +14,22 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
 import { EditItem } from "@/components/editButton";
+import { AvatarLogin } from "@/components/loginAvatar";
 
 export default function Pb() {
   const pb = new PocketBase("http://172.16.15.150:8080");
   const [data, setData] = useState([]);
   const [dane, setDane] = useState({ nazwa: null, cena: null, opis: null });
   const [zdjecie, setZdjecie] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const login = (user_pb) => {
+    setUser(user_pb);
+  };
+
+  useEffect(() => {
+    setUser(pb.authStore.model);
+  }, []);
 
   const importDane = (e, nazwa) => {
     setDane((prev) => {
@@ -100,8 +110,9 @@ export default function Pb() {
 
   return (
     <div className="w-full h-screen">
+      <AvatarLogin onLogin={login} />
       <div className="w-full h-[80vh] flex flex-row justify-center gap-2">
-        {data &&
+        {user && data ? (
           data.map((item, idx) => (
             <Card key={idx} className="w-[300px]">
               <CardHeader>
@@ -136,7 +147,10 @@ export default function Pb() {
                 </Button>
               </CardFooter>
             </Card>
-          ))}
+          ))
+        ) : (
+          <h1>niezalogowany</h1>
+        )}
       </div>
       <div className="w-full h-[20vh] flex justify-center mt-5">
         <Card className="w-[400px] h-[375px] p-5">
